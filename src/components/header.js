@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginBottom:4,
   },
   title: {
     alignItems: 'center',
@@ -24,7 +25,7 @@ export default function DenseAppBar() {
       <AppBar position="static">
         <Toolbar className={classes.title} variant="dense">
             <Typography variant="h6" color="inherit">
-                Joke-A-Nator
+                Tolkien Quote Generator
             </Typography>
         </Toolbar>
       </AppBar>
