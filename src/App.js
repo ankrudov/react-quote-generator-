@@ -1,12 +1,31 @@
+import React, { useState }from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import DenseAppBar from './components/header';
 import QuoteCard from './components/card';
-import {createTheme, ThemeProvider } from '@material-ui/core/styles'; //using material uis themes
+import { lightTheme, darkTheme, GlobalStyles } from './components/themes';
+import Button from '@material-ui/core/Button';
+
+const StyledApp = styled.div`
+  color: ${(props)=> props.theme.fontColor};
+`;
 
 function App() {
+  const [theme, setTheme] = useState("light");
+    
+    const themeToggler = ()=>{
+        theme === "light"? setTheme("dark"): setTheme("light");
+    };
+
   return (
     <div>
-      <DenseAppBar/>
-      <QuoteCard/>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <DenseAppBar/>
+        <QuoteCard/>
+        <GlobalStyles/>
+        <StyledApp>
+        <Button variant="outlined" color="primary" onClick={()=> themeToggler()}>Toggle Theme</Button>
+        </StyledApp>
+      </ThemeProvider>
     </div>
   );
 }
