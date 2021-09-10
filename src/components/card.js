@@ -6,6 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import { useState, useEffect } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
+import WebFont from 'webfontloader';
+import { GlobalStyles } from '../theme/GlobalStyles';
+import { useTheme } from '../theme/useTheme';
 
 const useStyles = makeStyles({
   root:{
@@ -25,6 +29,22 @@ function CharacterCard(){
   const [quote, setQuote] = useState()
   const [character,setCharacter] = useState();
   const classes = useStyles();
+
+  const {theme, themeLoaded, getFonts} = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
+
+  useEffect(()=>{
+    setSelectedTheme(theme);
+  },[themeLoaded]);
+
+  // loadFonts with webfont
+  useEffect(()=>{
+    WebFont.load({
+      google:{
+        families: getFonts()
+      }
+    })
+  });
   //loads data on load using useEffect useEffect = componentDidMount, componentDidUmount
 
     useEffect(()=>{
@@ -74,6 +94,7 @@ function CharacterCard(){
               <Button variant="outlined" color="primary" onClick={refreshPage}>
               New Quote!
               </Button>
+              <themeSelector setter={ setSelectedTheme }/>
             </CardActions>
           </Card>
         </Grid>

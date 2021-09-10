@@ -5,7 +5,7 @@ import { GlobalStyles } from './theme/GlobalStyles';
 import { useTheme } from './theme/useTheme';
 import DenseAppBar from './components/header';
 import QuoteCard from './components/card';
-import Button from '@material-ui/core/Button';
+import themeSelector from './theme/themeSelector';
 
 const Container = styled.div`
   margin: 5px auto 5px auto;
