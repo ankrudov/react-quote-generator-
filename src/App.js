@@ -1,47 +1,41 @@
 import React, { useState, useEffect }from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import WebFont from 'webfontloader';
-import { GlobalStyles } from './theme/GlobalStyles';
-import { useTheme } from './theme/useTheme';
+import styled, { createGlobalStyle } from 'styled-components';
+import { imgArr } from './utils/randomImg';
 import DenseAppBar from './components/header';
 import QuoteCard from './components/card';
-import themeSelector from './theme/themeSelector';
 
-const Container = styled.div`
-  margin: 5px auto 5px auto;
+const Title = styled.h1`
+  color: blue !important;
 `;
 
 function App() {
-  // grab selected themes 
-  const {theme, themeLoaded, getFonts} = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
+  const [theme, setTheme] = useState("https://images5.alphacoders.com/509/thumb-1920-509402.jpg");
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const randomImage = ()=>{
+    const randImg = imgArr[Math.floor(Math.random() * imgArr.length)];
 
-  useEffect(()=>{
-    setSelectedTheme(theme);
-  },[themeLoaded]);
+    setTheme(randImg);
+    return randImg
+  };
 
-  // loadFonts with webfont
-  useEffect(()=>{
-    WebFont.load({
-      google:{
-        families: getFonts()
-      }
-    })
-  });
-    
+  const GlobalStyle = createGlobalStyle`
+  body{
+    background-color:black;
+    background-image: url(${randomImage});
+    width: 100vw;
+    height:100vh;
+    transition: all 0.70s linear;
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-position: center, center;
+  }
+`
+
   return (
-    <div>
-      <DenseAppBar/>
-      <>
-        {
-          themeLoaded && <ThemeProvider theme={selectedTheme}>
-            <GlobalStyles/>
-            <Container style={{fontFamily: selectedTheme.font}}>
-              <QuoteCard/>
-            </Container>
-          </ThemeProvider>
-        }
-      </>
+    <div className="App">
+      <GlobalStyle/>
+        <DenseAppBar/>
+        <QuoteCard/>
     </div>
   );
 }

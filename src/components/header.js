@@ -22,10 +22,10 @@ export default function DenseAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="absolute">
         <Toolbar className={classes.title} variant="dense">
             <Typography variant="h6" color="inherit">
-                Tolkien Quote Generator
+                Tolkien Quote-Anator
             </Typography>
         </Toolbar>
       </AppBar>
